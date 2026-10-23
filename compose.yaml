@@ -1,0 +1,10 @@
+services:
+  frame-notes:
+    build: .
+    ports:
+      - "127.0.0.1:8789:8789"
+    volumes:
+      - frame-data:/app/.runtime
+    restart: unless-stopped
+volumes:
+  frame-data:

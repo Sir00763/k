@@ -1,0 +1,12 @@
+.runtime/
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+.env
+.env.*
+!.env.example
+.openai/
+dist/
+*.log
+.DS_Store

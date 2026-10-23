@@ -1,0 +1,15 @@
+{
+  "name": "frame-notes",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "YouTube transcript and local speech recognition workbench",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node scripts/dev.mjs",
+    "check": "node scripts/check.mjs"
+  }
+}

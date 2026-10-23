@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import worker,{videoId} from '../worker/index.js';
+assert.equal(videoId('https://youtu.be/abcdefghijk'),'abcdefghijk');
+assert.equal(videoId('https://youtube.com.evil.test/watch?v=abcdefghijk'),null);
+const page=await worker.fetch(new Request('https://test/'));
+assert.equal(page.status,200);
+const html=await page.text();
+const script=html.match(/<script>([\s\S]*?)<\/script>/)[1];
+new vm.Script(script);
+const start=script.indexOf('function seconds');
+const end=script.indexOf('function highlights');
+const context=vm.createContext({});vm.runInContext(script.slice(start,end),context);
+assert.equal(context.parse('1\n00:00:01,200 --> 00:00:03,400\n字幕')[0].start,1.2);
+assert.equal(context.parse('00:18\n带时间戳的文字')[0].start,18);
+console.log('Passed URL validation, page, browser script syntax and subtitle parsing.');
